@@ -11,45 +11,67 @@
       <h1 class="text-center">Admin Page - Update Text</h1>
       <form id="updateTextForm">
         <div class="mb-3">
-          <label for="image1Text" class="form-label">Yellow</label>
+          <label for="image1Text" class="form-label">Text for Image 1</label>
           <input type="text" class="form-control" id="image1Text" placeholder="Enter new text">
         </div>
         <div class="mb-3">
-          <label for="image2Text" class="form-label">Mint</label>
+          <label for="image2Text" class="form-label">Text for Image 2</label>
           <input type="text" class="form-control" id="image2Text" placeholder="Enter new text">
         </div>
         <div class="mb-3">
-          <label for="image3Text" class="form-label">Blue</label>
+          <label for="image3Text" class="form-label">Text for Image 3</label>
           <input type="text" class="form-control" id="image3Text" placeholder="Enter new text">
         </div>
         <div class="mb-3">
-          <label for="image4Text" class="form-label">Green</label>
+          <label for="image4Text" class="form-label">Text for Image 4</label>
           <input type="text" class="form-control" id="image4Text" placeholder="Enter new text">
         </div>
         <div class="mb-3">
-          <label for="image5Text" class="form-label">Purple</label>
+          <label for="image5Text" class="form-label">Text for Image 5</label>
           <input type="text" class="form-control" id="image5Text" placeholder="Enter new text">
         </div>
         <div class="mb-3">
-          <label for="image6Text" class="form-label">Orange</label>
+          <label for="image6Text" class="form-label">Text for Image 6</label>
           <input type="text" class="form-control" id="image6Text" placeholder="Enter new text">
         </div>
         <button type="submit" class="btn btn-primary">Update Text</button>
       </form>
     </div>
 
+    <!-- Firebase Setup -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
+
     <script>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCeJ8YookJJLVnVWhvp3ZL78y4C03X2aF0",
+        authDomain: "camp-a1d01.firebaseapp.com",
+        projectId: "camp-a1d01",
+        storageBucket: "camp-a1d01.appspot.com",
+        messagingSenderId: "1050900317125",
+        appId: "1:1050900317125:web:d7aef208ef76baa6ba01ac",
+        measurementId: "G-WZ1E1SRYKS"
+      };
+
+      // Initialize Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const database = firebase.database();
+
       document.getElementById('updateTextForm').addEventListener('submit', function(event) {
         event.preventDefault();
         
+        const updates = {};
         for (let i = 1; i <= 6; i++) {
           const newText = document.getElementById('image' + i + 'Text').value;
           if (newText) {
-            localStorage.setItem('text' + i, newText);
+            updates['text' + i] = newText;
           }
         }
-        
-        alert('Text updated! Refresh the main page to see the changes.');
+
+        // Update the text in Firebase Realtime Database
+        firebase.database().ref('texts').update(updates)
+          .then(() => alert('Text updated! All devices will reflect these changes in real-time.'));
       });
     </script>
   </body>

@@ -18,7 +18,7 @@
         position: relative;
         text-align: center;
         color: white;
-        max-width: 330px;
+        max-width: 300px;
         margin: 0 auto;
       }
       .image-container img {
@@ -27,10 +27,11 @@
       }
       .centered-text {
         position: absolute;
-        top: 60%;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 5rem;
+        font-size: 1.5rem;
+        background-color: rgba(0, 0, 0, 0.5);
         padding: 10px;
         border-radius: 5px;
       }
@@ -43,19 +44,19 @@
     
     <div class="container-fluid">
       <div class="row text-center">
-        <div class="col-md-4 my-4">
+        <div class="col-md-4 my-3">
           <div class="image-container">
             <img src="y1.png" class="img-fluid" alt="Image 1">
             <div class="centered-text" id="text1">Text for Image 1</div>
           </div>
         </div>
-        <div class="col-md-4 my-4">
+        <div class="col-md-4 my-3">
           <div class="image-container">
             <img src="m2.png" class="img-fluid" alt="Image 2">
             <div class="centered-text" id="text2">Text for Image 2</div>
           </div>
         </div>
-        <div class="col-md-4 my-4">
+        <div class="col-md-4 my-3">
           <div class="image-container">
             <img src="b3.png" class="img-fluid" alt="Image 3">
             <div class="centered-text" id="text3">Text for Image 3</div>
@@ -66,19 +67,19 @@
     
     <div class="container-fluid">
       <div class="row text-center">
-        <div class="col-md-4 my-4">
+        <div class="col-md-4 my-3">
           <div class="image-container">
             <img src="g4.png" class="img-fluid" alt="Image 4">
             <div class="centered-text" id="text4">Text for Image 4</div>
           </div>
         </div>
-        <div class="col-md-4 my-4">
+        <div class="col-md-4 my-3">
           <div class="image-container">
             <img src="p5.png" class="img-fluid" alt="Image 5">
             <div class="centered-text" id="text5">Text for Image 5</div>
           </div>
         </div>
-        <div class="col-md-4 my-4">
+        <div class="col-md-4 my-3">
           <div class="image-container">
             <img src="o6.png" class="img-fluid" alt="Image 6">
             <div class="centered-text" id="text6">Text for Image 6</div>
@@ -87,27 +88,38 @@
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    <script>
+    <!-- Firebase Setup -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
 
-function updateText(id, newText) {
+    <script>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCeJ8YookJJLVnVWhvp3ZL78y4C03X2aF0",
+        authDomain: "camp-a1d01.firebaseapp.com",
+        projectId: "camp-a1d01",
+        storageBucket: "camp-a1d01.appspot.com",
+        messagingSenderId: "1050900317125",
+        appId: "1:1050900317125:web:d7aef208ef76baa6ba01ac",
+        measurementId: "G-WZ1E1SRYKS"
+      };
+
+      // Initialize Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const database = firebase.database();
+
+      // Function to update the text
+      function updateText(id, newText) {
         document.getElementById(id).textContent = newText;
       }
 
-      document.addEventListener("DOMContentLoaded", function() {
+      // Load initial text from Firebase Realtime Database
+      firebase.database().ref('texts').on('value', (snapshot) => {
+        const texts = snapshot.val();
         for (let i = 1; i <= 6; i++) {
-          const savedText = localStorage.getItem('text' + i);
-          if (savedText) {
-            updateText('text' + i, savedText);
+          if (texts && texts['text' + i]) {
+            updateText('text' + i, texts['text' + i]);
           }
-        }
-      });
-
-      window.addEventListener('storage', function(event) {
-        if (event.key.startsWith('text')) {
-          updateText(event.key, event.newValue);
         }
       });
     </script>
