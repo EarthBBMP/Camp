@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Admin Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <h1>Admin Page</h1>
+    <div>
+      <input type="text" id="textInput1" placeholder="Enter new text for Image 1">
+      <button onclick="updateText(1)">Update Image 1</button>
+    </div>
+    <div>
+      <input type="text" id="textInput2" placeholder="Enter new text for Image 2">
+      <button onclick="updateText(2)">Update Image 2</button>
+    </div>
+    <div>
+      <input type="text" id="textInput3" placeholder="Enter new text for Image 3">
+      <button onclick="updateText(3)">Update Image 3</button>
+    </div>
+    <div>
+      <input type="text" id="textInput4" placeholder="Enter new text for Image 4">
+      <button onclick="updateText(4)">Update Image 4</button>
+    </div>
+    <div>
+      <input type="text" id="textInput5" placeholder="Enter new text for Image 5">
+      <button onclick="updateText(5)">Update Image 5</button>
+    </div>
+    <div>
+      <input type="text" id="textInput6" placeholder="Enter new text for Image 6">
+      <button onclick="updateText(6)">Update Image 6</button>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCqL6r01RHOnpPnHXef0JywsC-tn5iD8x8",
+        authDomain: "biochem-camp-2024.firebaseapp.com",
+        projectId: "biochem-camp-2024",
+        storageBucket: "biochem-camp-2024.appspot.com",
+        messagingSenderId: "348221116301",
+        appId: "1:348221116301:web:cf844e60d23878508b77c4",
+        measurementId: "G-5GX5SEQBXW"
+      };
+      
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const database = firebase.database();
+
+      // Function to update text for specific image
+      function updateText(imageNumber) {
+        const newText = document.getElementById(`textInput${imageNumber}`).value;
+        firebase.database().ref(`imageText/image${imageNumber}`).set(newText);
+      }
+    </script>
+  </body>
+</html>
