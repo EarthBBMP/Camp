@@ -34,36 +34,41 @@
       const newText = document.getElementById(`textInput${imageNumber}`).value;
       const textRef = ref(database, `imageText/image${imageNumber}`);
       set(textRef, newText)
-        .then(() => alert('Update successful'))
         .catch(error => alert('Error: ' + error.message));
     }
   </script>
+  <style>
+    .pdy{
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+  </style>
 </head>
 <body>
   <h1>Admin Page</h1>
-  <div>
+  <div class="pdy">
     <input type="text" id="textInput1" placeholder="Enter new text for Image 1">
-    <button onclick="updateText(1)">Update Image 1</button>
+    <button onclick="updateText(1)">Update yellow</button>
   </div>
-  <div>
+  <div class="pdy">
     <input type="text" id="textInput2" placeholder="Enter new text for Image 2">
-    <button onclick="updateText(2)">Update Image 2</button>
+    <button onclick="updateText(2)">Update mint</button>
   </div>
-  <div>
+  <div class="pdy">
     <input type="text" id="textInput3" placeholder="Enter new text for Image 3">
-    <button onclick="updateText(3)">Update Image 3</button>
+    <button onclick="updateText(3)">Update blue</button>
   </div>
-  <div>
+  <div class="pdy">
     <input type="text" id="textInput4" placeholder="Enter new text for Image 4">
-    <button onclick="updateText(4)">Update Image 4</button>
+    <button onclick="updateText(4)">Update green</button>
   </div>
-  <div>
+  <div class="pdy">
     <input type="text" id="textInput5" placeholder="Enter new text for Image 5">
-    <button onclick="updateText(5)">Update Image 5</button>
+    <button onclick="updateText(5)">Update purple</button>
   </div>
-  <div>
+  <div class="pdy">
     <input type="text" id="textInput6" placeholder="Enter new text for Image 6">
-    <button onclick="updateText(6)">Update Image 6</button>
+    <button onclick="updateText(6)">Update orange</button>
   </div>
 </body>
 </html>
