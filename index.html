@@ -88,27 +88,33 @@
     </div>
 
     <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js"></script>
-    <script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
+      import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
       // Your web app's Firebase configuration
       const firebaseConfig = {
         apiKey: "AIzaSyCqL6r01RHOnpPnHXef0JywsC-tn5iD8x8",
         authDomain: "biochem-camp-2024.firebaseapp.com",
+        databaseURL: "https://biochem-camp-2024-default-rtdb.asia-southeast1.firebasedatabase.app",
         projectId: "biochem-camp-2024",
         storageBucket: "biochem-camp-2024.appspot.com",
         messagingSenderId: "348221116301",
         appId: "1:348221116301:web:cf844e60d23878508b77c4",
         measurementId: "G-5GX5SEQBXW"
       };
-      
+
       // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      const database = firebase.database();
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const database = getDatabase(app);
 
       // Fetch and display text for each image
       for (let i = 1; i <= 6; i++) {
-        firebase.database().ref(`imageText/image${i}`).on('value', (snapshot) => {
+        const textRef = ref(database, `imageText/image${i}`);
+        onValue(textRef, (snapshot) => {
           const textData = snapshot.val();
           document.getElementById(`image${i}Text`).innerText = textData ? textData : '0';
         });
